@@ -161,10 +161,10 @@ public class ExportServiceBasedImportController implements ImportController {
   }
 
   private static void notifyListenerUninstallOldAppSuggested(Listener listener) {
-//    if (listener != null) {
-//      listener.onOldAppUninstallSuggested(
-//          new Intent(Intent.ACTION_DELETE, Uri.parse("package:" + OLD_APP_PACKAGE_NAME)));
-//    }
+    if (listener != null) {
+      listener.onOldAppUninstallSuggested(
+          new Intent(Intent.ACTION_DELETE, Uri.parse("package:" + OLD_APP_PACKAGE_NAME)));
+    }
   }
 
   private static void notifyListenerFinished(Listener listener) {
