@@ -1,5 +1,6 @@
 /*
  * Copyright 2011 Google Inc. All Rights Reserved.
+ * Copyright 2014 Richard Banasiak. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +19,10 @@ package com.google.android.apps.authenticator.dataexport;
 
 import com.google.android.apps.authenticator.AccountDb;
 import com.google.android.apps.authenticator.Preconditions;
+import com.google.android.apps.authenticator.dataimport.Importer;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -60,6 +65,16 @@ public class Exporter {
         return result;
     }
 
+    public JSONObject getJsonData() {
+        JSONObject result = new JSONObject();
+        try {
+            result.put(Importer.KEY_ACCOUNTS, getAccountDbJson(mAccountDb));
+        } catch (JSONException e) {
+            throw new RuntimeException("Unable to export database");
+        }
+        return result;
+    }
+
     private static Bundle getAccountDbBundle(AccountDb accountDb) {
         List<String> accountNames = new ArrayList<String>();
         accountDb.getNames(accountNames);
@@ -86,6 +101,39 @@ public class Exporter {
             }
             account.putString("type", serializedAccountType);
             result.putBundle(String.valueOf(accountPosition), account);
+        }
+        return result;
+    }
+
+    private static JSONObject getAccountDbJson(AccountDb accountDb) {
+        List<String> accountNames = new ArrayList<String>();
+        accountDb.getNames(accountNames);
+        JSONObject result = new JSONObject();
+        int accountPosition = 0;
+        for (String accountName : accountNames) {
+            accountPosition++;
+            JSONObject account = new JSONObject();
+            try {
+                account.put(Importer.KEY_NAME, accountName);
+                account.put(Importer.KEY_ENCODED_SECRET, accountDb.getSecret(accountName));
+                account.put(Importer.KEY_COUNTER, accountDb.getCounter(accountName));
+                AccountDb.OtpType accountType = accountDb.getType(accountName);
+                String serializedAccountType;
+                switch(accountType) {
+                    case HOTP:
+                        serializedAccountType = AccountDb.OtpType.HOTP.toString();
+                        break;
+                    case TOTP:
+                        serializedAccountType = AccountDb.OtpType.TOTP.toString();
+                        break;
+                    default:
+                        throw new RuntimeException("Unsupported account type: " + accountType);
+                }
+                account.put(Importer.KEY_TYPE, serializedAccountType);
+                result.put(String.valueOf(accountPosition), account);
+            } catch (JSONException e) {
+                throw new RuntimeException("Unable to JSON Serialize account database");
+            }
         }
         return result;
     }

@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "com.google.android.apps.authenticator2_plus"
-        minSdkVersion 7
+        minSdkVersion 8
         targetSdkVersion 19
 
         testApplicationId "com.google.android.apps.authenticator2.tests"

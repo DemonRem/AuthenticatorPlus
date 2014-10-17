@@ -38,22 +38,22 @@ public class Importer {
   private static final String LOG_TAG = Importer.class.getSimpleName();
 
   // @VisibleForTesting
-  static final String KEY_ACCOUNTS = "accountDb";
+  public static final String KEY_ACCOUNTS = "accountDb";
 
   // @VisibleForTesting
-  static final String KEY_PREFERENCES = "preferences";
+  public static final String KEY_PREFERENCES = "preferences";
 
   // @VisibleForTesting
-  static final String KEY_NAME = "name";
+  public static final String KEY_NAME = "name";
 
   // @VisibleForTesting
-  static final String KEY_ENCODED_SECRET = "encodedSecret";
+  public static final String KEY_ENCODED_SECRET = "encodedSecret";
 
   // @VisibleForTesting
-  static final String KEY_TYPE = "type";
+  public static final String KEY_TYPE = "type";
 
   // @VisibleForTesting
-  static final String KEY_COUNTER = "counter";
+  public static final String KEY_COUNTER = "counter";
 
   /**
    * Imports the contents of the provided {@link Bundle} into the provided {@link AccountDb} and

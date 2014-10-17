@@ -18,7 +18,15 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
     <string name="backup_screen_title">Backup/Restore</string>
+
     <string name="backup_preference_screen_title">Backup/Restore Secret Tokens</string>
     <string name="backup_prefernce_screen_summary">Backup/restore application database to/from external storage</string>
+
+    <string name="backup_button">Backup</string>
+    <string name="restore_button">Restore</string>
+
+    <string name="backup_text">Click the "Backup" button to export your OTP secret tokens to the SD card:\n\n%s\n\nStore this file in a safe place, because it can be used to generate one-time passwords used to access your account.</string>
+
+    <string name="restore_text">Click the "Restore" button to import your OTP secret tokens from the SD card. This will restore the Authenticator database from:\n\n%s</string>
 
 </resources>
