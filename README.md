@@ -3,8 +3,9 @@ AuthenticatorPlus
 
 About
 -----
-This project is a fork of the Google Authenticator for Android project. This fork adds a **MAJOR SECURITY VULNERABILITY** and should not be used by anyone. _You've been warned!_
-Using this app will allow you to export your OTP secret tokens and import them into the app on another device.
+This project is a fork of the Google Authenticator for Android project. This fork adds a **MAJOR SECURITY VULNERABILITY** and should not be used by anyone. I accept no responsibility for compromised account information if you choose to use this app. _You've been warned!_
+
+Using this app will allow you to export the database that contains your OTP secret tokens and import them into the app on another device.
 
 Overview
 --------
@@ -22,3 +23,8 @@ The Android mobile app supports:
 * Key provisioning via scanning a QR code
 * Manual key entry of RFC 3548 base32 key strings
 * DISCLAIMER: This open source project allows you to download the code that powered version 2.21 of the application. Subsequent versions contain Google-specific workflows that are not part of the project.
+
+Credit
+------
+This source code has been forked from:
+* https://code.google.com/p/google-authenticator/
