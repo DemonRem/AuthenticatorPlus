@@ -7,6 +7,10 @@ This project is a fork of the Google Authenticator for Android project. This for
 
 Using this app will allow you to export the database that contains your OTP secret tokens and import them into the app on another device.
 
+Why?
+----
+Because I hate resetting all my OTP accounts every time I switch devices. And I don't trust Authy. I'm sure they're nice people, I just don't trust them to store my secret tokens any more securely than I can.
+
 Overview
 --------
 The Google Authenticator project includes implementations of one-time passcode generators for several mobile platforms, as well as a pluggable authentication module (PAM). One-time passcodes are generated using open standards developed by the Initiative for Open Authentication (OATH) (which is unrelated to OAuth).
