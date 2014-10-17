@@ -66,7 +66,7 @@ public class AccountDb {
   private static final int PROVIDER_UNKNOWN = 0;
   private static final int PROVIDER_GOOGLE = 1;
 
-    // @VisibleForTesting
+  // @VisibleForTesting
   SQLiteDatabase mDatabase;
 
   private static final String LOCAL_TAG = "GoogleAuthenticator.AccountDb";
@@ -175,11 +175,6 @@ public class AccountDb {
   public void close() {
     mDatabase.close();
   }
-
-    public SQLiteDatabase getDatabaseForBackup() {
-        mDatabase.close();
-        return mDatabase;
-    }
 
   /**
    * Lists the names of all the columns in the specified table.
