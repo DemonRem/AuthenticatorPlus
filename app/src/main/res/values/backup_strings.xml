@@ -26,7 +26,14 @@
     <string name="restore_button">Restore</string>
 
     <string name="backup_text">Tap the "Backup" button to export your OTP secret tokens to the SD card:\n\n%s\n\nStore this file in a safe place, because it can be used to generate one-time passwords used to access your account.</string>
-
     <string name="restore_text">Tap the "Restore" button to import your OTP secret tokens from the SD card. This will restore the Authenticator database from:\n\n%s</string>
+
+    <string name="backup_failed">Backup failed</string>
+    <string name="backup_success">Backup successful</string>
+
+    <string name="restore_failed">Unable to restore backup. Sorry…</string>
+    <string name="restore_success">Restored %1$s account%2$s</string>
+
+    <string name="button_restore_accounts">Restore backup</string>
 
 </resources>

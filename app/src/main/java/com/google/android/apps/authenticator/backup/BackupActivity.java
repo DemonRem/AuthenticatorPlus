@@ -26,6 +26,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.apps.authenticator.dataexport.Exporter;
+import com.google.android.apps.authenticator.dataimport.Importer;
 import com.google.android.apps.authenticator.testability.DependencyInjector;
 import com.google.android.apps.authenticator2_plus.R;
 
@@ -74,19 +75,32 @@ public class BackupActivity extends Activity implements View.OnClickListener{
 
     private void onBackupButtonPressed() {
         Exporter exporter = new Exporter(DependencyInjector.getAccountDb(), null);
-        Bundle bundle = exporter.getData();
 
         JSONObject json = exporter.getJsonData();
         if(writeJsonToFile(json)) {
-            Toast.makeText(this, "Backup successful", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.backup_success, Toast.LENGTH_SHORT).show();
         } else {
-            Toast.makeText(this, "Backup failed", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.backup_failed, Toast.LENGTH_SHORT).show();
         }
 
     }
 
     private void onRestoreButtonPressed() {
+        Importer importer = new Importer();
+        JSONObject json = readJsonFromFile();
+        int accountsImported = importer.importFromJson(json, DependencyInjector.getAccountDb());
 
+        if(accountsImported == -1) {
+            Toast.makeText(this, R.string.restore_failed, Toast.LENGTH_SHORT).show();
+        } else {
+            String text = "";
+            if(accountsImported == 1) {
+                text = getString(R.string.restore_success, accountsImported, "");
+            } else {
+                text = getString(R.string.restore_success, accountsImported, "s");
+            }
+            Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
+        }
     }
 
     private boolean writeJsonToFile(JSONObject json) {
@@ -119,6 +133,7 @@ public class BackupActivity extends Activity implements View.OnClickListener{
 
         } catch (Exception e) {
             Log.e(TAG, "Unable to read backup from external storage");
+            Log.e(TAG, e.getMessage());
         }
 
         return json;

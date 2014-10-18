@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Copyright 2009 Google Inc. All Rights Reserved.
+     Copyright 2014 Richard Banasiak. All Rights Reserved.
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -55,6 +56,11 @@
           android:layout_height="wrap_content" />
         <Button android:id="@+id/add_account_button"
           android:text="@string/button_add_account"
+          android:layout_marginTop="10sp"
+          android:layout_width="fill_parent"
+          android:layout_height="wrap_content" />
+        <Button android:id="@+id/restore_account_button"
+          android:text="@string/button_restore_accounts"
           android:layout_marginTop="10sp"
           android:layout_width="fill_parent"
           android:layout_height="wrap_content" />

@@ -1,5 +1,6 @@
 /*
  * Copyright 2009 Google Inc. All Rights Reserved.
+ * Copyright 2014 Richard Banasiak. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +18,7 @@
 package com.google.android.apps.authenticator;
 
 import com.google.android.apps.authenticator.AccountDb.OtpType;
+import com.google.android.apps.authenticator.backup.BackupActivity;
 import com.google.android.apps.authenticator.dataimport.ImportController;
 import com.google.android.apps.authenticator.howitworks.IntroEnterPasswordActivity;
 import com.google.android.apps.authenticator.testability.DependencyInjector;
@@ -246,6 +248,11 @@ public class AuthenticatorActivity extends TestableActivity {
       @Override
       public void onClick(View v) {
         addAccount();
+      }
+    });
+    findViewById(R.id.restore_account_button).setOnClickListener(new OnClickListener() {
+      @Override public void onClick(View v) {
+        restoreAccounts();
       }
     });
     mEnterPinPrompt = (TextView) findViewById(R.id.enter_pin_prompt);
@@ -797,6 +804,10 @@ public class AuthenticatorActivity extends TestableActivity {
 
   private void addAccount() {
     DependencyInjector.getOptionalFeatures().onAuthenticatorActivityAddAccount(this);
+  }
+
+  private void restoreAccounts() {
+    startActivity(new Intent(this, BackupActivity.class));
   }
 
   private void scanBarcode() {
