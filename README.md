@@ -32,3 +32,9 @@ Credit
 ------
 This source code has been forked from:
 * https://code.google.com/p/google-authenticator/
+
+Screenshots
+-----------
+
+<img src="https://raw.githubusercontent.com/banasiak/AuthenticatorPlus/master/screenshots/1.png" width="300px"/>
+<img src="https://raw.githubusercontent.com/banasiak/AuthenticatorPlus/master/screenshots/2.png" width="300px"/>
