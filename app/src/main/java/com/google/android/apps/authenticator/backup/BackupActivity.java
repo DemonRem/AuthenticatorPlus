@@ -35,6 +35,7 @@ import org.json.JSONObject;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.util.ArrayList;
 
 public class BackupActivity extends Activity implements View.OnClickListener{
 
@@ -60,6 +61,14 @@ public class BackupActivity extends Activity implements View.OnClickListener{
 
         Button restoreButton = (Button) findViewById(R.id.restore);
         restoreButton.setOnClickListener(this);
+
+        // hide backup instructions if the account database is empty
+        ArrayList<String> accountNames = new ArrayList<String>();
+        DependencyInjector.getAccountDb().getNames(accountNames);
+        if(accountNames.size() < 1) {
+            backupText.setVisibility(View.GONE);
+            backupButton.setVisibility(View.GONE);
+        }
     }
 
     @Override public void onClick(View v) {
