@@ -31,6 +31,8 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * Imports the contents of {@link AccountDb} and the key material and settings from a
@@ -84,13 +86,16 @@ public class Importer {
 
   public int importFromJson(JSONObject json, AccountDb accountDb) {
       JSONObject accountDbJson = null;
-      try {
-          accountDbJson = json.getJSONObject(KEY_ACCOUNTS);
-          if (accountDbJson != null) {
-              return importAccountDbFromJson(accountDbJson, accountDb);
+      if(json != null) {
+          try {
+              accountDbJson = json.getJSONObject(KEY_ACCOUNTS);
+              if (accountDbJson != null) {
+                  return importAccountDbFromJson(accountDbJson, accountDb);
+              }
+          } catch (JSONException e) {
+              Log.e(LOG_TAG, "Unable to import database");
+              Log.e(LOG_TAG, e.getMessage());
           }
-      } catch (JSONException e) {
-          throw new RuntimeException("Unable to import database");
       }
       return -1;
   }
@@ -152,62 +157,70 @@ public class Importer {
   private int importAccountDbFromJson(JSONObject json, AccountDb accountDb) {
       Iterator<String> it = json.keys();
       int importedAccountCount = 0;
-      try {
-          while (it.hasNext()) {
-              String key = it.next();
-              JSONObject accountJson = json.getJSONObject(key);
-              String name = null;
-              String secret = null;
-              Integer counter = null;
-              String typeString = null;
-              AccountDb.OtpType type = null;
+      TreeMap<String, JSONObject> map = new TreeMap<String, JSONObject>();
+      // iterate over the JSON objects and put them in a sorted map
+      while(it.hasNext()) {
+        try{
+            String key = it.next();
+            JSONObject value = json.getJSONObject(key);
+            map.put(key, value);
+        } catch (Exception e) {
+            Log.e(LOG_TAG, "Unable to deserialize JSON string");
+            Log.e(LOG_TAG, e.getMessage());
+            return -1;
+        }
+      }
 
-              try {
-                  name = accountJson.getString(KEY_NAME);
-                  if(accountDb.nameExists(name)) {
-                      Log.w(LOG_TAG, "Skipping account #" + key + ": already configured");
-                      continue;
-                  }
-              } catch (JSONException e1) {
-                  Log.w(LOG_TAG, "Skipping account #" + key + ": name missing");
+      for(Map.Entry<String, JSONObject> entry : map.entrySet()) {
+          String key = entry.getKey();
+          JSONObject accountJson = entry.getValue();
+          String name = null;
+          String secret = null;
+          Integer counter = null;
+          String typeString = null;
+          AccountDb.OtpType type = null;
+
+          try {
+              name = accountJson.getString(KEY_NAME);
+              if(accountDb.nameExists(name)) {
+                  Log.w(LOG_TAG, "Skipping account #" + key + ": already configured");
                   continue;
               }
+          } catch (JSONException e1) {
+              Log.w(LOG_TAG, "Skipping account #" + key + ": name missing");
+              continue;
+          }
 
-              try {
-                  secret = accountJson.getString(KEY_ENCODED_SECRET);
-              } catch (JSONException e2) {
-                  Log.w(LOG_TAG, "Skipping account #" + key + ": secret missing");
+          try {
+              secret = accountJson.getString(KEY_ENCODED_SECRET);
+          } catch (JSONException e2) {
+              Log.w(LOG_TAG, "Skipping account #" + key + ": secret missing");
+              continue;
+          }
+
+          try {
+              typeString = accountJson.getString(KEY_TYPE);
+              type = AccountDb.OtpType.valueOf(typeString);
+          } catch (JSONException e3) {
+              Log.w(LOG_TAG, "Skipping account #" + key + ": type missing");
+              continue;
+          }
+
+          try {
+              counter = accountJson.getInt(KEY_COUNTER);
+          } catch (JSONException e4) {
+              if (type == AccountDb.OtpType.HOTP) {
+                  Log.w(LOG_TAG, "Skipping account #" + key + ": counter missing");
                   continue;
-              }
-
-              try {
-                  typeString = accountJson.getString(KEY_TYPE);
-                  type = AccountDb.OtpType.valueOf(typeString);
-              } catch (JSONException e3) {
-                  Log.w(LOG_TAG, "Skipping account #" + key + ": type missing");
-                  continue;
-              }
-
-              try {
-                  counter = accountJson.getInt(KEY_COUNTER);
-              } catch (JSONException e4) {
-                  if (type == AccountDb.OtpType.HOTP) {
-                      Log.w(LOG_TAG, "Skipping account #" + key + ": counter missing");
-                      continue;
-                  } else {
-                      counter = AccountDb.DEFAULT_HOTP_COUNTER;
-                  }
-              }
-
-              if (name != null && secret != null && counter != null && type != null) {
-                  accountDb.update(name, secret, name, type, counter);
-                  importedAccountCount++;
+              } else {
+                  counter = AccountDb.DEFAULT_HOTP_COUNTER;
               }
           }
-      } catch(Exception e) {
-          Log.e(LOG_TAG, "Unable to deserialize JSON string");
-          Log.e(LOG_TAG, e.getMessage());
-          return -1;
+
+          if (name != null && secret != null && counter != null && type != null) {
+              accountDb.update(name, secret, name, type, counter);
+              importedAccountCount++;
+          }
       }
 
       Log.i(LOG_TAG, "Imported " + importedAccountCount + " accounts");
