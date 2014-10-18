@@ -81,7 +81,6 @@
         android:layout_weight="0.5"
         android:layout_gravity="left"
         android:layout_marginRight="5sp"
-        style="?attr/directionalButtonLeftStyle"
         />
       <Button
         android:id="@+id/button_right"
@@ -91,7 +90,6 @@
         android:layout_weight="0.5"
         android:layout_gravity="right"
         android:layout_marginLeft="5sp"
-        style="?attr/directionalButtonRightStyle"
         />
     </LinearLayout>
 

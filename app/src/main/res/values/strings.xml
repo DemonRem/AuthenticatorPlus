@@ -311,7 +311,7 @@
   </string>
 
   <!-- Label of the button to exit the "How it works" introductory flow. -->
-  <string name="button_exit_howitworks_flow">Exit</string>
+  <string name="button_exit_howitworks_flow">Got it!</string>
 
   <!-- Heading in the main screen of the app when there are no accounts configured (yet). -->
   <string name="welcome_page_title">
