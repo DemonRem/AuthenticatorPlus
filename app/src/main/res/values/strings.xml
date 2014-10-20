@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Copyright 2009 Google Inc. All Rights Reserved.
+     Copyright 2014 Richard Banasiak. All Rights Reserved.
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -15,7 +16,9 @@
 -->
 
 
-<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2"
+           xmlns:tools="http://schemas.android.com/tools"
+           tools:ignore="MissingTranslation" >>
 
   <!-- Name of the application -->
   <string name="app_name">Authenticator Plus</string>
@@ -132,7 +135,7 @@
   <string name="opensource_preference_title">Open-source project</string>
 
   <!-- DO NOT TRANSLATE. URL of the Open-Source project's page. -->
-  <string name="opensource_page_url">http://code.google.com/p/google-authenticator/</string>
+  <string name="opensource_page_url">https://github.com/banasiak/AuthenticatorPlus/</string>
 
   <!-- Preference title, used to view the terms of service from Google web page -->
   <string name="terms_preference_title">Terms of service</string>
