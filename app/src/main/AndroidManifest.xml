@@ -16,8 +16,7 @@
 -->
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.google.android.apps.authenticator2_plus"
-          android:versionCode="1" android:versionName="2.21+1">
+          package="com.google.android.apps.authenticator2_plus">
 
 
   <uses-permission android:name="android.permission.VIBRATE" />
