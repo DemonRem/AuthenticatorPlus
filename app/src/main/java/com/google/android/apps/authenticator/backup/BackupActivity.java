@@ -17,6 +17,8 @@
 package com.google.android.apps.authenticator.backup;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
@@ -104,11 +106,38 @@ public class BackupActivity extends Activity implements View.OnClickListener{
         } else {
             String text = "";
             if(accountsImported == 1) {
-                text = getString(R.string.restore_success, accountsImported, "");
+                text = getString(R.string.restore_success, accountsImported, ".");
             } else {
-                text = getString(R.string.restore_success, accountsImported, "s");
+                text = getString(R.string.restore_success, accountsImported, "s.");
             }
-            Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
+
+            text = text + "\n\n" + getString(R.string.delete_restore_file, BACKUP_FILE_STRING);
+
+            new AlertDialog.Builder(this)
+                    .setTitle(getString(R.string.delete_restore_file, BACKUP_FILE))
+                    .setMessage(text)
+                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                        @Override public void onClick(DialogInterface dialog, int which) {
+                            deleteRestoreFile();
+                            dialog.dismiss();
+
+                        }
+                    })
+                    .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                        @Override public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                        }
+                    })
+                    .show();
+        }
+    }
+
+    private void deleteRestoreFile() {
+        File file = new File(BACKUP_FILE_STRING);
+        if (file.delete() ) {
+            Toast.makeText(this, getString(R.string.delete_success, BACKUP_FILE), Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, getString(R.string.delete_failed, BACKUP_FILE), Toast.LENGTH_SHORT).show();
         }
     }
 

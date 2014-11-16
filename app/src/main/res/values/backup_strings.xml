@@ -36,6 +36,10 @@
     <string name="restore_failed">Unable to restore backup. Sorry…</string>
     <string name="restore_success">Restored %1$s account%2$s</string>
 
+    <string name="delete_restore_file">Delete %1s?</string>
+    <string name="delete_failed">Unable to delete %1s</string>
+    <string name="delete_success">%1s deleted</string>
+
     <string name="button_restore_accounts">Restore backup</string>
 
 </resources>
