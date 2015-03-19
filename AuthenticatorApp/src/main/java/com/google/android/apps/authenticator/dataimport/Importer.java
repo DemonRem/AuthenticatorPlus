@@ -1,5 +1,6 @@
 /*
  * Copyright 2011 Google Inc. All Rights Reserved.
+ * Copyright 2014 Richard Banasiak. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +19,9 @@ package com.google.android.apps.authenticator.dataimport;
 
 import com.google.android.apps.authenticator.AccountDb;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -25,7 +29,10 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * Imports the contents of {@link AccountDb} and the key material and settings from a
@@ -38,22 +45,22 @@ public class Importer {
   private static final String LOG_TAG = Importer.class.getSimpleName();
 
   // @VisibleForTesting
-  static final String KEY_ACCOUNTS = "accountDb";
+  public static final String KEY_ACCOUNTS = "accountDb";
 
   // @VisibleForTesting
-  static final String KEY_PREFERENCES = "preferences";
+  public static final String KEY_PREFERENCES = "preferences";
 
   // @VisibleForTesting
-  static final String KEY_NAME = "name";
+  public static final String KEY_NAME = "name";
 
   // @VisibleForTesting
-  static final String KEY_ENCODED_SECRET = "encodedSecret";
+  public static final String KEY_ENCODED_SECRET = "encodedSecret";
 
   // @VisibleForTesting
-  static final String KEY_TYPE = "type";
+  public static final String KEY_TYPE = "type";
 
   // @VisibleForTesting
-  static final String KEY_COUNTER = "counter";
+  public static final String KEY_COUNTER = "counter";
 
   /**
    * Imports the contents of the provided {@link Bundle} into the provided {@link AccountDb} and
@@ -75,6 +82,22 @@ public class Importer {
         importPreferencesFromBundle(preferencesBundle, preferences);
       }
     }
+  }
+
+  public int importFromJson(JSONObject json, AccountDb accountDb) {
+      JSONObject accountDbJson = null;
+      if(json != null) {
+          try {
+              accountDbJson = json.getJSONObject(KEY_ACCOUNTS);
+              if (accountDbJson != null) {
+                  return importAccountDbFromJson(accountDbJson, accountDb);
+              }
+          } catch (JSONException e) {
+              Log.e(LOG_TAG, "Unable to import database");
+              Log.e(LOG_TAG, e.getMessage());
+          }
+      }
+      return -1;
   }
 
   private void importAccountDbFromBundle(Bundle bundle, AccountDb accountDb) {
@@ -129,6 +152,79 @@ public class Importer {
     }
 
     Log.i(LOG_TAG, "Imported " + importedAccountCount + " accounts");
+  }
+
+  private int importAccountDbFromJson(JSONObject json, AccountDb accountDb) {
+      Iterator<String> it = json.keys();
+      int importedAccountCount = 0;
+      TreeMap<String, JSONObject> map = new TreeMap<String, JSONObject>();
+      // iterate over the JSON objects and put them in a sorted map
+      while(it.hasNext()) {
+        try{
+            String key = it.next();
+            JSONObject value = json.getJSONObject(key);
+            map.put(key, value);
+        } catch (Exception e) {
+            Log.e(LOG_TAG, "Unable to deserialize JSON string");
+            Log.e(LOG_TAG, e.getMessage());
+            return -1;
+        }
+      }
+
+      for(Map.Entry<String, JSONObject> entry : map.entrySet()) {
+          String key = entry.getKey();
+          JSONObject accountJson = entry.getValue();
+          String name = null;
+          String secret = null;
+          Integer counter = null;
+          String typeString = null;
+          AccountDb.OtpType type = null;
+
+          try {
+              name = accountJson.getString(KEY_NAME);
+              if(accountDb.nameExists(name)) {
+                  Log.w(LOG_TAG, "Skipping account #" + key + ": already configured");
+                  continue;
+              }
+          } catch (JSONException e1) {
+              Log.w(LOG_TAG, "Skipping account #" + key + ": name missing");
+              continue;
+          }
+
+          try {
+              secret = accountJson.getString(KEY_ENCODED_SECRET);
+          } catch (JSONException e2) {
+              Log.w(LOG_TAG, "Skipping account #" + key + ": secret missing");
+              continue;
+          }
+
+          try {
+              typeString = accountJson.getString(KEY_TYPE);
+              type = AccountDb.OtpType.valueOf(typeString);
+          } catch (JSONException e3) {
+              Log.w(LOG_TAG, "Skipping account #" + key + ": type missing");
+              continue;
+          }
+
+          try {
+              counter = accountJson.getInt(KEY_COUNTER);
+          } catch (JSONException e4) {
+              if (type == AccountDb.OtpType.HOTP) {
+                  Log.w(LOG_TAG, "Skipping account #" + key + ": counter missing");
+                  continue;
+              } else {
+                  counter = AccountDb.DEFAULT_HOTP_COUNTER;
+              }
+          }
+
+          if (name != null && secret != null && counter != null && type != null) {
+              accountDb.update(name, secret, name, type, counter);
+              importedAccountCount++;
+          }
+      }
+
+      Log.i(LOG_TAG, "Imported " + importedAccountCount + " accounts");
+      return importedAccountCount;
   }
 
   private static class IntegerStringComparator implements Comparator<String> {

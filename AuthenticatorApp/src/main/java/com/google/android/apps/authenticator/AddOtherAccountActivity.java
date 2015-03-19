@@ -17,7 +17,7 @@
 package com.google.android.apps.authenticator;
 
 import com.google.android.apps.authenticator.wizard.WizardPageActivity;
-import com.google.android.apps.authenticator2.R;
+import com.google.android.apps.authenticator2_plus.R;
 
 import android.content.Intent;
 import android.os.Bundle;

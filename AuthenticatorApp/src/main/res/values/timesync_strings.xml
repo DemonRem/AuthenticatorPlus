@@ -22,7 +22,7 @@
 
   <!-- Summary of the preference screen to configure the correction of the app's internal time. -->
   <string name="timesync_preference_screen_summary">
-    Sync Authenticator\'s internal clock with Google servers
+    Sync Authenticator+\'s internal clock with Google servers
   </string>
 
   <!-- Title of the preference to sync the app's internal time with Google. -->
@@ -37,21 +37,21 @@
   <!-- Text (HTML) of the screen describing the Time correction/sync feature in detail. -->
   <string name="timesync_about_feature_screen_details">
     <![CDATA[
-      If you press &quot;Sync now&quot;, Authenticator will attempt to sync its internal clock with
+      If you press &quot;Sync now&quot;, Authenticator+ will attempt to sync its internal clock with
       Google servers once. The device\'s Date & Time settings will not be changed.
       <p>
-      Authenticator does not transmit any personal data or account information while synchronizing
+      Authenticator+ does not transmit any personal data or account information while synchronizing
       its internal clock with Google servers.
       <p>
       <b>Why this is useful</b>
       <p>
-      Authenticator generates 2-step verification codes based on 1) the current time, and 2) a
+      Authenticator+ generates 2-step verification codes based on 1) the current time, and 2) a
       secret number known to the app and the server.
       <p>
-      If Authenticator and the server disagree on what time it is, the codes that the app generates
+      If Authenticator+ and the server disagree on what time it is, the codes that the app generates
       may not be accepted when you try to log in.
       <p>
-      By default Authenticator uses the device\'s Date & Time settings, and in most cases you will
+      By default Authenticator+ uses the device\'s Date & Time settings, and in most cases you will
       be able to generate valid codes by making sure your time, date, and time zone settings are
       configured correctly.  However, when time mismatches do occur, they can be hard to
       troubleshoot (especially if you use network-provided time or time zones).
@@ -76,7 +76,7 @@
   <!-- Details of the dialog displayed after the application contacted Google servers and
        corrected its internal time. -->
   <string name="timesync_sync_now_time_corrected_dialog_details">
-    Authenticator\'s internal clock has been adjusted to match the time provided by Google servers.
+    Authenticator+\'s internal clock has been adjusted to match the time provided by Google servers.
     \n\nThe Date &amp; Time settings on this device have not been changed.
   </string>
 
@@ -87,7 +87,7 @@
   <!-- Details of the dialog displayed after the application contacted Google servers and
        discovered that the internal time does not need correcting. -->
   <string name="timesync_sync_now_time_already_correct_dialog_details">
-    Authenticator\'s internal clock was not adjusted because it appears to already be in sync with
+    Authenticator+\'s internal clock was not adjusted because it appears to already be in sync with
     Google servers.
   </string>
 

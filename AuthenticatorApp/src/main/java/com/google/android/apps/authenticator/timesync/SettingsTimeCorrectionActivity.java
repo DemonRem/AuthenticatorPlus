@@ -17,7 +17,7 @@
 package com.google.android.apps.authenticator.timesync;
 
 import com.google.android.apps.authenticator.testability.TestablePreferenceActivity;
-import com.google.android.apps.authenticator2.R;
+import com.google.android.apps.authenticator2_plus.R;
 
 import android.os.Bundle;
 

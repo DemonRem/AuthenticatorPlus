@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Copyright 2009 Google Inc. All Rights Reserved.
+     Copyright 2014 Richard Banasiak. All Rights Reserved.
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -15,13 +16,15 @@
 -->
 
 
-<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2"
+           xmlns:tools="http://schemas.android.com/tools"
+           tools:ignore="MissingTranslation" >>
 
   <!-- Name of the application -->
-  <string name="app_name">Google Authenticator</string>
+  <string name="app_name">Authenticator Plus</string>
 
   <!-- Shortened version of the application name, without Google branding -->
-  <string name="app_name_short">Authenticator</string>
+  <string name="app_name_short">Authenticator+</string>
 
   <!-- Title displayed at the top when adding new OTP account manually -->
   <string name="enter_key_title">Manual account entry</string>
@@ -132,7 +135,7 @@
   <string name="opensource_preference_title">Open-source project</string>
 
   <!-- DO NOT TRANSLATE. URL of the Open-Source project's page. -->
-  <string name="opensource_page_url">https://github.com/google/google-authenticator/</string>
+  <string name="opensource_page_url">https://github.com/banasiak/AuthenticatorPlus/</string>
 
   <!-- Preference title, used to view the terms of service from Google web page -->
   <string name="terms_preference_title">Terms of service</string>
@@ -253,17 +256,17 @@
   </string-array>
 
   <!-- Title of the prompt/dialog displayed to the user on application startup when data from the
-       deprecated/old Authenticator app has been imported into this app and thus the
+       deprecated/old Authenticator+ app has been imported into this app and thus the
        deprecated/old app can be uninstalled. The text of the prompt is defined in
        dataimport_import_succeeded_uninstall_dialog_prompt. -->
   <string name="dataimport_import_succeeded_uninstall_dialog_title">Import succeeded</string>
 
   <!-- Text of the prompt displayed to the user on application startup when data from the
-       deprecated/old Authenticator app has been imported into this app and thus the
+       deprecated/old Authenticator+ app has been imported into this app and thus the
        deprecated/old app can be uninstalled.
        The dialog offers two buttons: Uninstall (button_uninstall_old_app) and Cancel. -->
   <string name="dataimport_import_succeeded_uninstall_dialog_prompt">
-    Your data has been successfully imported from the deprecated Google Authenticator app.
+    Your data has been successfully imported from the deprecated Authenticator Plus app.
     It is now safe to uninstall the prior version of the app by clicking below.
   </string>
 
@@ -311,7 +314,7 @@
   </string>
 
   <!-- Label of the button to exit the "How it works" introductory flow. -->
-  <string name="button_exit_howitworks_flow">Exit</string>
+  <string name="button_exit_howitworks_flow">Got it!</string>
 
   <!-- Heading in the main screen of the app when there are no accounts configured (yet). -->
   <string name="welcome_page_title">

@@ -27,7 +27,7 @@ import com.google.android.apps.authenticator.dataimport.ImportController;
 import com.google.android.apps.authenticator.howitworks.IntroEnterPasswordActivity;
 import com.google.android.apps.authenticator.testability.DependencyInjector;
 import com.google.android.apps.authenticator.testability.StartActivityListener;
-import com.google.android.apps.authenticator2.R;
+import com.google.android.apps.authenticator2_plus.R;
 
 import android.content.ActivityNotFoundException;
 import android.content.ComponentName;

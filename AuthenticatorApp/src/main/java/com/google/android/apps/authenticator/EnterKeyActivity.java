@@ -19,7 +19,7 @@ package com.google.android.apps.authenticator;
 import com.google.android.apps.authenticator.AccountDb.OtpType;
 import com.google.android.apps.authenticator.Base32String.DecodingException;
 import com.google.android.apps.authenticator.wizard.WizardPageActivity;
-import com.google.android.apps.authenticator2.R;
+import com.google.android.apps.authenticator2_plus.R;
 
 import android.os.Bundle;
 import android.text.Editable;

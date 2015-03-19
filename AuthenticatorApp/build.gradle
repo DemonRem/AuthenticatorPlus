@@ -1,13 +1,15 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 14
-    buildToolsVersion "21.1.2"
+    compileSdkVersion 22
+    buildToolsVersion "22.0.0"
 
     defaultConfig {
-        applicationId "com.google.android.apps.authenticator2"
-        minSdkVersion 7
-        targetSdkVersion 14
+        applicationId "com.google.android.apps.authenticator2_plus"
+        minSdkVersion 8
+        targetSdkVersion 22
+        versionCode 4
+        versionName "2.21+4"
 
         testApplicationId "com.google.android.apps.authenticator2.tests"
         testInstrumentationRunner "android.test.InstrumentationTestRunner"
