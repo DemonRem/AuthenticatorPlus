@@ -17,7 +17,7 @@
 package com.google.android.apps.authenticator;
 
 import com.google.android.apps.authenticator.testability.TestablePreferenceActivity;
-import com.google.android.apps.authenticator2_plus.R;
+import com.google.android.apps.authenticator2.R;
 
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;

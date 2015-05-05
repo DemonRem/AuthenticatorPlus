@@ -30,7 +30,7 @@ import android.widget.Toast;
 import com.google.android.apps.authenticator.dataexport.Exporter;
 import com.google.android.apps.authenticator.dataimport.Importer;
 import com.google.android.apps.authenticator.testability.DependencyInjector;
-import com.google.android.apps.authenticator2_plus.R;
+import com.google.android.apps.authenticator2.R;
 
 import org.json.JSONObject;
 
