@@ -2,17 +2,34 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 22
-    buildToolsVersion "22.0.0"
+    buildToolsVersion "22.0.1"
 
     defaultConfig {
-        applicationId "com.google.android.apps.authenticator2_plus"
+        applicationId "com.google.android.apps.authenticator2"
         minSdkVersion 8
         targetSdkVersion 22
-        versionCode 4
-        versionName "2.21+4"
+        versionCode 5
+        versionName "2.21+5"
 
         testApplicationId "com.google.android.apps.authenticator2.tests"
         testInstrumentationRunner "android.test.InstrumentationTestRunner"
+    }
+
+    productFlavors {
+        playStore {
+        }
+        openSource {
+            applicationId "com.google.android.apps.authenticator2.os"
+            testApplicationId "com.google.android.apps.authenticator2.tests.os"
+        }
+        openSourceDev {
+            applicationId "com.google.android.apps.authenticator2.osdev"
+            testApplicationId "com.google.android.apps.authenticator2.tests.osdev"
+        }
+        authenticatorPlus {
+            applicationId "com.google.android.apps.authenticator2.plus"
+            testApplicationId "com.google.android.apps.authenticator2.tests.plus"
+        }
     }
 
     buildTypes {
